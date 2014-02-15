@@ -9,3 +9,5 @@ __requirements:__
 *   python 2.7
 *   Bottle 0.11
 *   pymongo 2.6.3
+
+*	2-2 Write a program in the language of your choice that will remove the grade of type "homework" with the lowest score for each student from the dataset that you imported in HW 2.1. Since each document is one grade, it should remove one document per student. 
