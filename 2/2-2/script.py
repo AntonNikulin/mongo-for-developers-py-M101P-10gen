@@ -13,5 +13,14 @@ client = MongoClient()
 db = client['students']
 collection = db['grades']
 
-for rec in collection.find({'type':'homework'}).sort([('student_id',1),('score',1)]):
+currentStudent = 0
+prevStudent = 0
+minValue = None
+for rec in collection.find({'type':'homework'}).sort([('student_id', 1),('score', 1)]):
+    currentStudent = rec['student_id']
+    #Find out if student_id changed
+    if currentStudent != prevStudent:
+        prevStudent = currentStudent
+        print "Student changed to "+str(prevStudent)
+
     print rec['student_id']
