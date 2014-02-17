@@ -15,12 +15,21 @@ collection = db['grades']
 
 currentStudent = 0
 prevStudent = 0
-minValue = None
+recordNumber = 1
+
+#get record sorted by id and score. Lowest score per student will be first.
 for rec in collection.find({'type':'homework'}).sort([('student_id', 1),('score', 1)]):
     currentStudent = rec['student_id']
-    #Find out if student_id changed
+
+    #Check when we changed student
     if currentStudent != prevStudent:
         prevStudent = currentStudent
-        print "Student changed to "+str(prevStudent)
+        recordNumber = 1
 
-    print rec['student_id']
+    #delete homework record with lowest score
+    if recordNumber == 1:
+        collection.remove({'_id':rec['_id']})
+
+    recordNumber += 1
+
+client.close()
