@@ -17,8 +17,11 @@ db = client.school
 collection = db.students
 
 for doc in collection.find():
-    #get array of scores from document and sort it by type then score
-    arr= sorted(doc['scores'], key=lambda x: (x["type"], x["score"]))
+    #get array of scores from document and sort it by type and by score
+    scoresArray= sorted(doc['scores'], key=lambda x: (x["type"], x["score"]))
     #homework with lowest grade in 2nd place. delete it.
-    del arr[1]
-    print arr
+    del scoresArray[1]
+
+    #replace score array and save document
+    doc["scores"] = scoresArray
+    collection.save(doc)
