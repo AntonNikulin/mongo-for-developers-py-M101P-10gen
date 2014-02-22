@@ -18,4 +18,7 @@ collection = db.students
 
 for doc in collection.find():
     #get array of scores from document and sort it by type then score
-    print sorted(doc['scores'], key=lambda x: (x["type"], x["score"]))
+    arr= sorted(doc['scores'], key=lambda x: (x["type"], x["score"]))
+    #homework with lowest grade in 2nd place. delete it.
+    del arr[1]
+    print arr
