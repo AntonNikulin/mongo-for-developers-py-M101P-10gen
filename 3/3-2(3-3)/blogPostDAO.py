@@ -74,7 +74,7 @@ class BlogPostDAO:
         l = []
 
         for post in cursor:
-            post['date'] = post['date'].strftime("%A, %B %d %Y at %I:%M%p") # fix up date
+            #post['date'] = post['date'].strftime("%A, %B %d %Y at %I:%M%p") # fix up date
             if 'tags' not in post:
                 post['tags'] = [] # fill it in if its not there already
             if 'comments' not in post:
@@ -96,9 +96,9 @@ class BlogPostDAO:
         # XXX Work here to retrieve the specified post
         post = self.posts.find_one({"permalink": permalink})
 
-        if post is not None:
+        #if post is not None:
             # fix up date
-            post['date'] = post['date'].strftime("%A, %B %d %Y at %I:%M%p")
+            #post['date'] = post['date'].strftime("%A, %B %d %Y at %I:%M%p")
 
         return post
 
@@ -113,6 +113,11 @@ class BlogPostDAO:
         try:
             last_error = {'n':-1}           # this is here so the code runs before you fix the next line
             # XXX HW 3.3 Work here to add the comment to the designated post
+            post = self.get_post_by_permalink(permalink)
+            comments = post['comments']
+            comments.append(comment)
+            post['comments']  = comments
+            self.posts.save(post)
 
 
             return last_error['n']          # return the number of documents updated
