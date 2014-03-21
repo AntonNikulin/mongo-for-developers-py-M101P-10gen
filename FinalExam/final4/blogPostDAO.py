@@ -121,7 +121,7 @@ class BlogPostDAO:
                     comment['num_likes'] = 0
 
             # fix up date
-            post['date'] = post['date'].strftime("%A, %B %d %Y at %I:%M%p")
+#            post['date'] = post['date'].strftime("%A, %B %d %Y at %I:%M%p")
 
         return post
 
@@ -150,9 +150,11 @@ class BlogPostDAO:
         #
         # XXX Final exam 
         # Work here. You need to update the num_likes value in the comment being liked
-        # 
-        
-
+        #
+        post = self.get_post_by_permalink(permalink)
+        comments = post['comments']
+        comments[comment_ordinal]['num_likes'] += 1
+        self.posts.update({"_id":post["_id"]}, post)
         return 0
 
 
